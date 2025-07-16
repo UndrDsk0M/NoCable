@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Transfer</title>
+</head>
+<body>
+    <h1>Upload a file</h1>
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <input type="file" onchange="encryptAndSend(this.files[0])">
+        <input type="submit" value="Upload">
+    </form>
+
+    <h2>Available Files</h2>
+  <ul>
+    {% for file in files %}
+        <li>
+            <a href="{{ url_for('download_file', filename=file) }}">{{ file }}</a>
+            <!-- Delete button -->
+            <form action="{{ url_for('delete_file', filename=file) }}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Are you sure to delete {{ file }}?')">🗑️ Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
+<script>
+function encryptAndSend(file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const content = event.target.result;
+        const encrypted = CryptoJS.AES.encrypt(content, "supersecret").toString();
+
+        const blob = new Blob([encrypted], {type: "text/plain"});
+        const formData = new FormData();
+        formData.append("file", blob, file.name + ".enc");
+
+        fetch("/upload", {
+            method: "POST",
+            body: formData
+        }).then(res => {
+            alert("Encrypted file uploaded.");
+            location.reload();
+        });
+    };
+    reader.readAsText(file);
+}
+</script>
+
+
+
+</body>
+</html>
