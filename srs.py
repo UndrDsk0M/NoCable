@@ -33,15 +33,16 @@ def upload_file():
 @app.route('/download/<filename>')
 def download_file(filename):
     filepath = os.path.join(UPLOAD_FOLDER, filename)
-    with open(filepath, 'rb') as f:
-        encrypted_data = f.read()
+    # with open(filepath, 'rb') as f:
+    #     encrypted_data = f.read()
     
-    decrypted = decrypt_file_data(encrypted_data, "supersecret")
+    # decrypted = decrypt_file_data(encrypted_data, "supersecret")
     
-    response = make_response(decrypted)
-    response.headers.set('Content-Type', 'application/octet-stream')
-    response.headers.set('Content-Disposition', 'attachment', filename=filename.replace(".enc", ""))
-    return response
+    # response = make_response(decrypted)
+    # response.headers.set('Content-Type', 'application/octet-stream')
+    # response.headers.set('Content-Disposition', 'attachment', filename=filename.replace(".enc", ""))
+    return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
+
 
 @app.route('/delete/<filename>', methods=['POST'])
 def delete_file(filename):
