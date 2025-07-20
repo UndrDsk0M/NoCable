@@ -5,50 +5,108 @@
     <title>File Transfer</title>
 </head>
 <body>
-    <h1>Upload a file</h1>
-    <form method="post" action="/upload" enctype="multipart/form-data">
-        <input type="file" onchange="encryptAndSend(this.files[0])">
-        <input type="submit" value="Upload">
-    </form>
+    <style>
+        .msg {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 0 20px;
+        }
 
-    <h2>Available Files</h2>
-  <ul>
-    {% for file in files %}
-        <li>
-            <a href="{{ url_for('download_file', filename=file) }}">{{ file }}</a>
+        .container {
+            border: 2px solid #dedede;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .darker {
+            border-color: #ccc;
+            background-color: #ddd;
+        }
+
+        .container::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .container img {
+            float: left;
+            max-width: 60px;
+            width: 100%;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+        .container img.right {
+            float: right;
+            margin-left: 20px;
+            margin-right:0;
+        }
+
+        .time-right {
+            float: right;
+            color: #aaa;
+        }
+
+        .time-left {
+            float: left;
+            color: #999;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+        <div class="container"> 
+           <div class="row"> 
+              <div class="col-sm">1</div>
+              <div class="col-sm">    
+              <form ondrop="dropHandler(event)" ondragover="event.preventDefault()" method="post" action="/upload" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <input type="submit" value="Upload">
+                </form>
+                
+                <div class="chat-input-holder">
+                    <input class="chat-input" placeholder="write somthing..."></input>
+                    <input type="submit" value="Send" class="message-send" />
+                </div>
+                </div>
+                
+              <div class="col-sm msg">
+    {% for file in files %} 
             <!-- Delete button -->
+        <div class="container">
+            <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+            <p><a draggable="true" href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></p>
             <form action="{{ url_for('delete_file', filename=file) }}" method="post" style="display:inline;">
                 <button type="submit" onclick="return confirm('Are you sure to delete {{ file }}?')">🗑️ Delete</button>
             </form>
-        </li>
-    {% endfor %}
+            <span class="time-right">11:00</span>
+        </div>
+        {% endfor %}
+                </div>
+           </div> 
+        </div>
+  <ul>
+
 </ul>
 
-    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 <script>
-{% comment %} function encryptAndSend(file) {
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const content = event.target.result;
-        const encrypted = CryptoJS.AES.encrypt(content, "supersecret").toString();
+function dropHandler(event) {
+  event.preventDefault(); // Stop default behavior like opening file in browser
 
-        const blob = new Blob([encrypted], {type: "text/plain"});
-        const formData = new FormData();
-        formData.append("file", blob, file.name + ".enc");
+  const files = event.dataTransfer.files;
 
-        fetch("/upload", {
-            method: "POST",
-            body: formData
-        }).then(res => {
-            alert("Encrypted file uploaded.");
-            location.reload();
-        });
-    };
-    reader.readAsText(file);
-} {% endcomment %}
+  if (files.length === 0) {
+    console.warn("No files dropped.");
+    return;
+  }
+
+  for (const file of files) {
+    console.log("Dropped file:", file.name, "Type:", file.type, "Size:", file.size);
+    // Example: upload, preview, etc.
+  }
+}
 </script>
-
-
-
 </body>
 </html>
