@@ -1,95 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>File Transfer</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>File Transfer</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <body>
     <style>
+        .dropdown {
+
+        position: relative;
+        display: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .connected{
+            padding: 20px;
+            float: left;
+            width: 25vw; /* The width is 20%, by default */
+
+        }
+        
+        .upload {
+            padding: 20px;
+            float: left;
+            width: 35vw;        
+        }
+        .files {
+            padding: 20px;
+            float: left;
+            width: 20%; /* The width is 20%, by default */
+        }
         .msg {
-            margin: 0 auto;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-
-        .container {
-            border: 2px solid #dedede;
-            background-color: #f1f1f1;
-            border-radius: 5px;
+            background-color:rgb(163, 234, 255);
+            margin-top: 4vh;
             padding: 10px;
-            margin: 10px 0;
+            border-redius: 5px;
         }
 
-        .darker {
-            border-color: #ccc;
-            background-color: #ddd;
-        }
+        @media screen and (max-width: 576px) {
+            body {
+                font-size: 2.5em;
+            }
+            .dropdown {
+                display: inline-block;
+                width: max-content;
+            }
+            
+            .upload, .files { 
+                width: 100vw; /* The width is 100%, when the viewport is 800px or smaller */
+            }
+            .container {
+                word-wrap: break-word; /* legacy but works */
+                overflow-wrap: break-word;
+            }
 
-        .container::after {
-            content: "";
-            clear: both;
-            display: table;
+            p {
+                width: 100vw;
+            }
         }
-
-        .container img {
-            float: left;
-            max-width: 60px;
-            width: 100%;
-            margin-right: 20px;
-            border-radius: 50%;
-        }
-
-        .container img.right {
-            float: right;
-            margin-left: 20px;
-            margin-right:0;
-        }
-
-        .time-right {
-            float: right;
-            color: #aaa;
-        }
-
-        .time-left {
-            float: left;
-            color: #999;
-        }
-    </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+        </style>
         <div class="container"> 
            <div class="row"> 
-              <div class="col-sm">1</div>
-              <div class="col-sm">    
-              <form ondrop="dropHandler(event)" ondragover="event.preventDefault()" method="post" action="/upload" enctype="multipart/form-data">
-                <input type="file" name="file">
-                <input type="submit" value="Upload">
-                </form>
+              <div class="connected">
+                <div class="dropdown">
+                    <span>Connected device's</span>
+                    <div class="dropdown-content">
+                        <p>Android14 xiaomi</p>
+                        <p>Linux firefox</p>
+                        <p>Apple watch</p>
+                        <p>Android13 Glaxy</p>
+                    </div>
+                 </div>
+              </div>
+              <div class="upload">    
+                <form ondrop="dropHandler(event)" ondragover="event.preventDefault()" method="post" action="/upload" enctype="multipart/form-data">
+                    <input type="file" name="file">
+                    <input type="submit" value="Upload">
+                    </form>
+                    
+                    <div class="chat-input-holder">
+                        <input class="chat-input" placeholder="write somthing..."></input>
+                        <input type="submit" value="Send" class="message-send" />
+                    </div>
+              </div>
                 
-                <div class="chat-input-holder">
-                    <input class="chat-input" placeholder="write somthing..."></input>
-                    <input type="submit" value="Send" class="message-send" />
+              <div class="files">
+                {% for file in files %} 
+                        <!-- Delete button -->
+                    <div class="container msg">
+                        <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+                        <p><a draggable="true" href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></p>
+                        <form action="{{ url_for('delete_file', filename=file) }}" method="post" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Are you sure to delete {{ file }}?')">🗑️ Delete</button>
+                        </form>
+                        <span class="time-right">11:00</span>
+                    </div>
+                {% endfor %}
                 </div>
-                </div>
-                
-              <div class="col-sm msg">
-    {% for file in files %} 
-            <!-- Delete button -->
-        <div class="container">
-            <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
-            <p><a draggable="true" href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></p>
-            <form action="{{ url_for('delete_file', filename=file) }}" method="post" style="display:inline;">
-                <button type="submit" onclick="return confirm('Are you sure to delete {{ file }}?')">🗑️ Delete</button>
-            </form>
-            <span class="time-right">11:00</span>
+             </div> 
         </div>
-        {% endfor %}
-                </div>
-           </div> 
-        </div>
-  <ul>
-
-</ul>
-
+  
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 <script>
 function dropHandler(event) {
