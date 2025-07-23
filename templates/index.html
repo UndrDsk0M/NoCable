@@ -2,16 +2,21 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <title>NoCable</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>File Transfer</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
 <body>
     <style>
-        .dropdown {
+        body {
+            background-image: url("/static/img/background.jpg");
+            background-repeat: repeat-x;
+            background-attachment: fixed;
+        }
 
-        position: relative;
-        display: none;
+        .dropdown {
+            position: relative;
+            display: none;
         }
 
         .dropdown-content {
@@ -37,7 +42,8 @@
         .upload {
             padding: 20px;
             float: left;
-            width: 35vw;        
+            width: 35vw;
+            margin-top: 35vh;        
         }
         .files {
             padding: 20px;
@@ -45,27 +51,54 @@
             width: 20%; /* The width is 20%, by default */
         }
         .msg {
-            background-color:rgb(163, 234, 255);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
             margin-top: 4vh;
-            padding: 10px;
+            padding: 10px 100px 5px 10px;
             border-redius: 5px;
+            word-wrap: break-word; /* legacy but works */
+            overflow-wrap: break-word;
+            width: 28vw;
+        }
+
+        .del{
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .chat-input {
+            width: 88%;
         }
 
         @media screen and (max-width: 576px) {
             body {
-                font-size: 2.5em;
+                width: 100vw;
+                font-size: 2em;
             }
+
+            input {
+                width: 90vw;
+            }
+
             .dropdown {
+                color: white;
                 display: inline-block;
                 width: max-content;
             }
             
-            .upload, .files { 
-                width: 100vw; /* The width is 100%, when the viewport is 800px or smaller */
+            .upload, .files, .msg { 
+                width: 90vw; /* The width is 100%, when the viewport is 800px or smaller */
             }
-            .container {
-                word-wrap: break-word; /* legacy but works */
-                overflow-wrap: break-word;
+            .upload{
+                margin-top: 10px; 
             }
 
             p {
@@ -89,7 +122,7 @@
               <div class="upload">    
                 <form ondrop="dropHandler(event)" ondragover="event.preventDefault()" method="post" action="/upload" enctype="multipart/form-data">
                     <input type="file" name="file">
-                    <input type="submit" value="Upload">
+                    <input type="submit" value="Upload" style="width: 100%">
                     </form>
                     
                     <div class="chat-input-holder">
@@ -100,12 +133,11 @@
                 
               <div class="files">
                 {% for file in files %} 
-                        <!-- Delete button -->
                     <div class="container msg">
                         <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
                         <p><a draggable="true" href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></p>
                         <form action="{{ url_for('delete_file', filename=file) }}" method="post" style="display:inline;">
-                            <button type="submit" onclick="return confirm('Are you sure to delete {{ file }}?')">🗑️ Delete</button>
+                            <button class="del" type="submit" onclick="return confirm('Are you sure to delete {{ file }}?')">🗑️ Delete</button>
                         </form>
                         <span class="time-right">11:00</span>
                     </div>
