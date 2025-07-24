@@ -19,6 +19,25 @@
             display: none;
         }
 
+        input[type="file"] {
+            display: none; /* hide the ugly default file input */
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            cursor: pointer;
+            background: white;
+            text-align: center;
+            width: 100%;
+            height: 20%;
+            border-radius: 50px 50px 0px 0px;
+        }
+
+        .custom-file-upload img {
+            width: 100px; /* adjust size */
+            height: auto;
+        }
+
         .dropdown-content {
             display: none;
             position: absolute;
@@ -43,7 +62,7 @@
             padding: 20px;
             float: left;
             width: 35vw;
-            margin-top: 35vh;        
+            margin-top: 25vh;        
         }
         .files {
             padding: 20px;
@@ -77,7 +96,13 @@
         .chat-input {
             width: 88%;
         }
-
+        .send-img-btn{
+            padding: 3px;
+            width: 50%;
+        }
+        .message-send{
+            width: 10%;
+        }
         @media screen and (max-width: 576px) {
             body {
                 width: 100vw;
@@ -87,7 +112,9 @@
             input {
                 width: 90vw;
             }
-
+            .message-send{
+                width: 6vw;
+            }
             .dropdown {
                 color: white;
                 display: inline-block;
@@ -120,14 +147,19 @@
                  </div>
               </div>
               <div class="upload">    
-                <form ondrop="dropHandler(event)" ondragover="event.preventDefault()" method="post" action="/upload" enctype="multipart/form-data">
-                    <input type="file" name="file">
+                <form ondrop="dropHandler(event)" ondragover="event.preventDefault()" method="post" action="/upload" enctype="multipart/form-data">                    
+                    <label for="file-upload" class="custom-file-upload">
+                        <img src="/static/img/uploadicon.png" alt="Upload Image">
+                    </label>
+                    <input id="file-upload" type="file" name="file">
                     <input type="submit" value="Upload" style="width: 100%">
                     </form>
                     
                     <div class="chat-input-holder">
                         <input class="chat-input" placeholder="write somthing..."></input>
-                        <input type="submit" value="Send" class="message-send" />
+                        <button type="submit" value="Send" class="message-send" />
+                            <img class="send-img-btn" src="/static/img/send_icon.svg" alt="submit"/>
+                        </button>
                     </div>
               </div>
                 
