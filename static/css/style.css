@@ -9,6 +9,14 @@ body {
     display: none;
 }
 
+.qrcode {
+  width: 13%;
+  height: 24%;
+  z-index: +1;
+  position: fixed;
+  color: yellow;
+}
+
 input[type="file"] {
     display: none; /* hide the ugly default file input */
 }
@@ -44,7 +52,7 @@ input[type="file"] {
 .connected{
     padding: 20px;
     float: left;
-    width: 25vw; /* The width is 20%, by default */
+    width: 23vw; /* The width is 20%, by default */
 
 }
 
@@ -68,7 +76,7 @@ input[type="file"] {
     color: white;
     margin-top: 4vh;
     padding: 10px 100px 5px 10px;
-    border-redius: 5px;
+    border-radius: 5px;
     word-wrap: break-word; /* legacy but works */
     overflow-wrap: break-word;
     width: 28vw;
@@ -120,5 +128,8 @@ input[type="file"] {
 
     p {
         width: 100vw;
+    }
+    .qrcode{
+        display: none;
     }
 }
