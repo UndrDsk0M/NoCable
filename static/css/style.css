@@ -1,0 +1,124 @@
+body {
+    background-image: url("/static/img/background.jpg");
+    background-repeat: repeat-x;
+    background-attachment: fixed;
+}
+
+.dropdown {
+    position: relative;
+    display: none;
+}
+
+input[type="file"] {
+    display: none; /* hide the ugly default file input */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+    background: white;
+    text-align: center;
+    width: 100%;
+    height: 20%;
+    border-radius: 50px 50px 0px 0px;
+}
+
+.custom-file-upload img {
+    width: 100px; /* adjust size */
+    height: auto;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.connected{
+    padding: 20px;
+    float: left;
+    width: 25vw; /* The width is 20%, by default */
+
+}
+
+.upload {
+    padding: 20px;
+    float: left;
+    width: 35vw;
+    margin-top: 25vh;        
+}
+.files {
+    padding: 20px;
+    float: left;
+    width: 20%; /* The width is 20%, by default */
+}
+.msg {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    margin-top: 4vh;
+    padding: 10px 100px 5px 10px;
+    border-redius: 5px;
+    word-wrap: break-word; /* legacy but works */
+    overflow-wrap: break-word;
+    width: 28vw;
+}
+
+.del{
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.chat-input {
+    width: 88%;
+}
+.send-img-btn{
+    padding: 3px;
+    width: 50%;
+}
+.message-send{
+    width: 10%;
+}
+@media screen and (max-width: 576px) {
+    body {
+        width: 100vw;
+        font-size: 2em;
+    }
+
+    input {
+        width: 90vw;
+    }
+    .message-send{
+        width: 6vw;
+    }
+    .dropdown {
+        color: white;
+        display: inline-block;
+        width: max-content;
+    }
+    
+    .upload, .files, .msg { 
+        width: 90vw; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+    .upload{
+        margin-top: 10px; 
+    }
+
+    p {
+        width: 100vw;
+    }
+}
