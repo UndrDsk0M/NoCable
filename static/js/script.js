@@ -1,8 +1,8 @@
-console.log(document.getElementsByClassName("custom-file-upload")[0]);
-document.getElementsByClassName("custom-file-upload")[0].addEventListener("drop", dropHandler);
-document
-  .getElementsByClassName("custom-file-upload")
-  .addEventListener("dragover", dragOverHandler);
+// console.log(document.getElementsByClassName("custom-file-upload")[0]);
+// document.getElementsByClassName("custom-file-upload")[0].addEventListener("drop", dropHandler);
+// document
+//   .getElementsByClassName("custom-file-upload")
+//   .addEventListener("dragover", dragOverHandler);
 
 function dropHandler(ev) {
   console.log("File(s) dropped");
@@ -40,8 +40,9 @@ function dropHandler(ev) {
   }
 }
 
-document.getElementsByClassName("file-upload").addEventListener('change', () => {
+document.getElementById('file-upload').addEventListener('change', () => {
   console.log("eyvallah")
+  console.log(document.getElementsByName('data')[0].value);
   const file = document.getElementById("file-upload").files[0];
   if (file) {
     const formData = new FormData();
