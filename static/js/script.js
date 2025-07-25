@@ -1,4 +1,5 @@
-document.getElementsByClassName(".custom-file-upload").addEventListener("drop", dropHandler);
+console.log(document.getElementsByClassName("custom-file-upload")[0]);
+document.getElementsByClassName("custom-file-upload")[0].addEventListener("drop", dropHandler);
 document
   .getElementsByClassName("custom-file-upload")
   .addEventListener("dragover", dragOverHandler);
