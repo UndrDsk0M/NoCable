@@ -2,24 +2,44 @@ from flask import Flask, request, send_from_directory, render_template, redirect
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 import base64
-
-def decrypt_file_data(encrypted_data, password):
-    key = SHA256.new(password.encode()).digest()
-    cipher = AES.new(key, AES.MODE_ECB)  # ساده‌ترین مدل، برای تست فقط!
-    decoded = base64.b64decode(encrypted_data)
-    decrypted = cipher.decrypt(decoded)
-    return decrypted.rstrip(b"\0")  # حذف padding دستی
-
 import os
+import segno
+import socket
+
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        return s.getsockname()[0]
+    except:
+        return "0.0.0.0"
+    finally:
+        s.close()
+
+port = "5000"
+
 @app.route('/')
 def index():
-    files = os.listdir(UPLOAD_FOLDER)
-    return render_template('index.html', files=files)
+    ip = get_ip()
+    qr = segno.make(f'http://{ip}:{port}')
+    qr.save("./static/img/qrcode.png")
+    
+    files = list(os.listdir(UPLOAD_FOLDER))
+    files.reverse()
+    print(files)
+    return render_template('index.html', qrcode=f'http://{ip}:{port}', files=files)
+
+
+@app.route('/message', methods=['POST'])
+def message():
+    if request.text == "":
+        return "no message", 400
+    # text = 
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -28,19 +48,11 @@ def upload_file():
     file = request.files['file']
     filepath = os.path.join(UPLOAD_FOLDER, file.filename)
     file.save(filepath)
-    return redirect(url_for('index'))
+    return "200"
 
 @app.route('/download/<filename>')
 def download_file(filename):
     filepath = os.path.join(UPLOAD_FOLDER, filename)
-    # with open(filepath, 'rb') as f:
-    #     encrypted_data = f.read()
-    
-    # decrypted = decrypt_file_data(encrypted_data, "supersecret")
-    
-    # response = make_response(decrypted)
-    # response.headers.set('Content-Type', 'application/octet-stream')
-    # response.headers.set('Content-Disposition', 'attachment', filename=filename.replace(".enc", ""))
     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
 
 
@@ -55,4 +67,4 @@ def delete_file(filename):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=port)
