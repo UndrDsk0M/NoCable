@@ -8,17 +8,23 @@
         <link href="/static/css/style.css" rel="stylesheet">
     </head>
 <body>
+<input type="hidden" id="link" value="{{qrcode}}">
 <div class="container"> 
     <div class="row"> 
-        <img class="qrcode" src="/static/img/qrcode.png" alt="{{qrcode}}:8000" title="connect to same WIFI and scan this qrcode to connect to this page"></img>
+        <img class="qrcode" src="/static/img/qrcode.png" alt="{{qrcode}}" title="connect to same WIFI and scan this qrcode to connect to this page"></img>
         <div class="connected">
+        <div class="help">
+            <p>1. Connect both devices to same Wifi</p>
+            <p>2. Scan the QrCode by the second device</p>
+            <p>3. Start Upload/Download by drag&drop or upload</p>
+            <hr>
+        </div>
         <div class="dropdown">
-            <span>Connected device's</span>
+            <span>NoCable</span>
             <div class="dropdown-content">
-                <p>Android14 xiaomi</p>
-                <p>Linux firefox</p>
-                <p>Apple watch</p>
-                <p>Android13 Glaxy</p>
+            <p>1. Connect both devices to same Wifi</p>
+            <p>2. Scan the QrCode by the second device</p>
+            <p>3. Start Upload/Download by dragdrop or upload</p>
             </div>
             </div>
         </div>
@@ -31,11 +37,7 @@
                 <img src="/static/img/uploadicon.png" alt="Upload Image">
             </label>
             <input id="file-upload" type="file" name="file">
-            <input type="submit" value="Upload" style="width: 100%">
         </form>
-       
-        
-        
             <div class="chat-input-holder">
                 <input class="chat-input" placeholder="write somthing..."></input>
                 <button type="submit" value="Send" class="message-send" />
@@ -48,7 +50,7 @@
         {% for file in files %} 
             <div class="container msg">
                 <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
-                <p><a draggable="true" href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></p>
+                <p class="file-link"><a draggable="true" href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></p>
                 <form action="{{ url_for('delete_file', filename=file) }}" method="post" style="display:inline;">
                     <button class="del" type="submit" onclick="return confirm('Are you sure to delete {{ file }}?')">🗑️ Delete</button>
                 </form>

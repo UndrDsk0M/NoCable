@@ -1,7 +1,8 @@
-document.getElementsByClassName(".custom-file-upload").addEventListener("drop", dropHandler);
-document
-  .getElementsByClassName("custom-file-upload")
-  .addEventListener("dragover", dragOverHandler);
+let link = document.getElementById("link").value;
+document.getElementsByClassName("custom-file-upload")[0].addEventListener("drop", dropHandler);
+// document
+//   .getElementsByClassName("custom-file-upload")
+//   .addEventListener("dragover", dragOverHandler);
 
 function dropHandler(ev) {
   console.log("File(s) dropped");
@@ -17,7 +18,7 @@ function dropHandler(ev) {
         const formData = new FormData();
         formData.append("file", file); // "file" is the name expected by the backend
 
-        fetch("http://192.168.1.113:5000/upload", {
+        fetch(`${link}/upload`, {
             method: "POST",
             body: formData
         })
@@ -39,13 +40,13 @@ function dropHandler(ev) {
   }
 }
 
-document.getElementsByClassName("file-upload").addEventListener('change', () => {
-  console.log("eyvallah")
+document.getElementById("file-upload").addEventListener('change', () => {
+  console.log(document.getElementById("file-upload").files[0])
   const file = document.getElementById("file-upload").files[0];
   if (file) {
     const formData = new FormData();
-    formData.append("file", files); 
-    fetch("http://192.168.1.113:5000/upload", {
+    formData.append("file", file); 
+    fetch(`${link}/upload`, {
         method: "POST",
         body: formData
     })
