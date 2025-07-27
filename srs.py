@@ -1,11 +1,13 @@
 from flask import Flask, request, send_from_directory, render_template, redirect, url_for, make_response
-from Crypto.Cipher import AES
-from Crypto.Hash import SHA256
+# from Crypto.Cipher import AES
+# from Crypto.Hash import SHA256
 import base64
 import os
 import segno
 import socket
-
+import random
+import string
+from datetime import datetime
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
@@ -21,7 +23,7 @@ def get_ip():
     finally:
         s.close()
 
-port = "5000"
+port = "8000"
 
 @app.route('/')
 def index():
@@ -37,9 +39,18 @@ def index():
 
 @app.route('/message', methods=['POST'])
 def message():
-    if request.text == "":
+    text = request.form['text']
+    print(text)
+    if text == "":
         return "no message", 400
-    # text = 
+    # try :
+    file_name:str = text[0:10].replace(" ", "_") + str(datetime.now())
+    # except: 
+    #     file_name:str = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
+    with open(f"uploads/{file_name}.text", 'w') as pen:
+        pen.write(text)
+
+    return redirect(url_for('index'))
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

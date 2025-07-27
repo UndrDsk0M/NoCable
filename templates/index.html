@@ -11,7 +11,7 @@
 <input type="hidden" id="link" value="{{qrcode}}">
 <div class="container"> 
     <div class="row"> 
-        <img class="qrcode" src="/static/img/qrcode.png" alt="{{qrcode}}" title="connect to same WIFI and scan this qrcode to connect to this page"></img>
+        <img class="qrcode" src="/static/img/qrcode.png" alt="{{ qrcode }}" title="connect to same WIFI and scan this qrcode to connect to this page"></img>
         <div class="connected">
         <div class="help">
             <p>1. Connect both devices to same Wifi</p>
@@ -38,13 +38,16 @@
             </label>
             <input id="file-upload" type="file" name="file">
         </form>
-            <div class="chat-input-holder">
-                <input class="chat-input" placeholder="write somthing..."></input>
-                <button type="submit" value="Send" class="message-send" />
+        <div class="chat-input-holder">
+            <form method="POST" action="/message">
+                <input name="text" type="text" class="chat-input" placeholder="write somthing..."></input>
+                <button type="submit" value="Submit" class="message-send" />
                     <img class="send-img-btn" src="/static/img/send_icon.svg" alt="submit"/>
                 </button>
+            </form>
             </div>
         </div>
+
         
         <div class="files">
         {% for file in files %} 
