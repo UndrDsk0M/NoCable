@@ -36,7 +36,8 @@ In Android you should Download Termux first as its android terminal
 ```pip install -r requirements.txt```
 7. run the project
 ```python srs.py```
-and it gives you a link and you can open it by browser with any device
+and it gives you two links and you have to open the second link so you
+ can open it by browser with any device
 that is connected to same internet.
 
 ## Android view 
