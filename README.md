@@ -45,15 +45,25 @@ that is connected to same internet.
 
 
 
-## Features
-### auto share
-You can also save your screenshots in uploads/ of the project to share the file automaticly
+# Features
+### auto share 
+You can set your screenshot saving location on srs/uploads to sharing automaticly 
 <img width="580" height="405" alt="20250728_005959" src="https://github.com/user-attachments/assets/7b8b248b-50cc-41e3-bf0e-e6c8fda810b8" />
 
 ### you can make put the project in startup to auto run after booting
+### auto delete, deletes the uploaded files after 5 minutes
 
+# Update! 
+## 1.0.3v
+### auto delete
+### fixing qrcode in mobile view
+### fixing header in mobile view 
 
-Whole project is build by flask
-Jinja2 protect the project from gettin Xss attack while uploading.
+## 1.0.0
+### delete button 
+### making responsive pages
+### releasing the stable version
+
+Whole project is built by flask
+Jinja2 protects the project from getting Xss attack.
 i love to know what you think about this project so feel free!
-

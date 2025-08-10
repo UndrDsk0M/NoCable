@@ -22,11 +22,12 @@
         <div class="dropdown">
             <span>NoCable</span>
             <div class="dropdown-content">
-            <p>1. Connect both devices to same Wifi</p>
-            <p>2. Scan the QrCode by the second device</p>
-            <p>3. Start Upload/Download by dragdrop or upload</p>
+                <img class="qrcode-m" src="/static/img/qrcode.png" alt="{{ qrcode }}" title="connect to same WIFI and scan this qrcode to connect to this page"></img>
+                <p>1. Connect both devices to same Wifi</p>
+                <p>2. Scan the QrCode by the second device</p>
+                <p>3. Start Upload/Download by dragdrop or upload</p>
             </div>
-            </div>
+        </div>
         </div>
         <div class="upload">    
        
@@ -52,12 +53,11 @@
         <div class="files">
         {% for file in files %} 
             <div class="container msg">
-                <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
                 <p class="file-link"><a draggable="true" href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></p>
                 <form action="{{ url_for('delete_file', filename=file) }}" method="post" style="display:inline;">
                     <button class="del" type="submit" onclick="return confirm('Are you sure to delete {{ file }}?')">🗑️ Delete</button>
                 </form>
-                <span class="time-right">11:00</span>
+                <span class="time-right"></span>
             </div>
         {% endfor %}
         </div>

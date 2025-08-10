@@ -67,7 +67,7 @@ input[type="file"] {
 .upload {
     padding: 20px;
     float: left;
-    width: 35vw;
+    width: 26vw;
     margin-top: 25vh;        
 }
 .files {
@@ -127,7 +127,7 @@ input[type="file"] {
     }
     
     .dropdown {
-        color: white;
+        color: rgba(74, 75, 5, 0.384);
         display: inline-block;
         width: max-content;
     }
@@ -139,6 +139,7 @@ input[type="file"] {
     }
 
     .connected {
+        background-color: #fffbf0c9;
         margin: 0px;
         width: 100%;
     }
@@ -153,9 +154,12 @@ input[type="file"] {
     p {
         width: 73vw;
     }
-    
-
     .qrcode{
         display: none;
+    }    
+
+    .qrcode-m{
+        width: -moz-available;
+        overflow: auto;
     }
 }
