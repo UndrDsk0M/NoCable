@@ -1,5 +1,6 @@
 from flask import Flask, request, send_from_directory, render_template, redirect, url_for, make_response
 from datetime import datetime, timedelta
+from plyer import notification
 import sched, time, threading
 import sched, time
 import threading
@@ -19,8 +20,6 @@ scheduler = sched.scheduler(time.time, time.sleep)
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-
-
 def delete_file_auto(file_path):
     os.remove(file_path)
     
@@ -37,8 +36,6 @@ def get_ip():
         return "0.0.0.0"
     finally:
         s.close()
-
-port = "3000"
 
 @app.route('/')
 def index():
@@ -94,5 +91,16 @@ def delete_file(filename):
     return redirect(url_for('index'))
 
 
+
+port = "3000"
+
 if __name__ == '__main__':    
+    ip = get_ip()
+    link = (f'http://{ip}:{port}')
     app.run(host='0.0.0.0', port=port)
+    notification.notify(
+        title="NoCable",
+        message=f"NoCable just started on {link}",
+        timeout=500
+    )
+
