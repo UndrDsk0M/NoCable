@@ -1,6 +1,6 @@
 APScheduler==3.11.0
 Flask==3.1.1
-segno==1.6.6
+qrcode==8.2
 click==8.2.1
 itsdangerous==2.2.0
 Jinja2==3.1.6

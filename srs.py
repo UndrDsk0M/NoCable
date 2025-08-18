@@ -8,7 +8,7 @@ import string
 import socket
 import random
 import base64
-import segno
+import qrcode
 import os
 
 app = Flask(__name__)
@@ -38,11 +38,7 @@ def get_ip():
         s.close()
 
 @app.route('/')
-def index():
-    ip = get_ip()
-    qr = segno.make(f'http://{ip}:{port}')
-    qr.save("./static/img/qrcode.png")
-    
+def index():    
     files = list(os.listdir(UPLOAD_FOLDER))
     files.reverse()
     print(files)
@@ -92,11 +88,20 @@ def delete_file(filename):
 
 
 
-port = "3000"
+
 
 if __name__ == '__main__':    
+    port = input("Enter the port(leave blank to 3000): ")
+    if not port:
+        port = 3000 
     ip = get_ip()
     link = (f'http://{ip}:{port}')
+    ip = get_ip()
+    qr = qrcode.QRCode()
+    qr.add_data(link)
+    qr2 = qrcode.make()
+    qr.print_ascii()
+    qr2.save("./static/img/qrcode.png")
     app.run(host='0.0.0.0', port=port)
     notification.notify(
         title="NoCable",

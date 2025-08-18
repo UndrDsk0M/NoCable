@@ -1,17 +1,21 @@
-<img width="512" height="512" alt="file_00000000ca006246b32a022c9333c948" src="https://github.com/user-attachments/assets/e950c6b0-6058-4928-8d4a-fb575832cd42" />
-
-
 # SRS ( Source Remote Sync )
-What is srs? srs is a local web service which run on your own device 
+<img width="512" height="512" alt="NoCable.jpg" src="https://github.com/user-attachments/assets/e950c6b0-6058-4928-8d4a-fb575832cd42" />
+
+What is srs? srs or NoCable is a local web service which run on your own device 
 and also its not limited on pc, and it opens 8000 port to recieve files
 and storage them in "uploads/".
 <a href="#download">Go to download</a>
 
+0. [Installation](#installation)
+1. [Usage](#usage)
+2. [Updates](#update)
+3. [View](#view)
+4. [Features](#features)
+5. [Contributing](#contributing)
+6. [License](#license)
 
-## Pc view
-<img width="1325" height="580" alt="example" src="https://github.com/user-attachments/assets/c7e11d18-bd55-414b-a785-99448591286b" />
 
-# Download 
+# installation 
 ## Linux/Windows
 1. Star the project
 2. Clone the project
@@ -34,18 +38,27 @@ In Android you should Download Termux first as its android terminal
 ```cd NoCable```
 6. Install the dependencies
 ```pip install -r requirements.txt```
-7. run the project
+7. run the python project
 ```python srs.py```
-and it gives you two links and you have to open the second link so you
- can open it by browser with any device
-that is connected to same internet.
+and it gives you two links+ a qrcode. open the second link
+ by browser with any device that is connected to same internet.
 
-## Android view 
-<img width="215" height="580" alt="example" src="https://github.com/user-attachments/assets/04b73d74-0cb8-4163-b4cd-67c1f40f6ec6" />
+## Usage
+
++ <b>Uploading any file</b>: You Can darg&drop or select any type of file to upload
++ <b>Auto deleting after 5 min</b>: the uploaded files delets after 5 min 
++ <b>Control the files manual</b>: Upload/Download or remove the files  
++ <b>Downloading</b>: downloading the uploaded file's by anydevice in the local netwoek
+
+## view
+### Desktop
+<img width="1325" height="580" alt="Desktop.png" src="https://github.com/user-attachments/assets/c7e11d18-bd55-414b-a785-99448591286b" />
+
+### Android 
+<img width="215" height="580" alt="Android.png" src="https://github.com/user-attachments/assets/04b73d74-0cb8-4163-b4cd-67c1f40f6ec6" />
 
 
-
-# Features
+## Features
 ### auto share 
 You can set your screenshot saving location on srs/uploads to sharing automaticly 
 <img width="580" height="405" alt="20250728_005959" src="https://github.com/user-attachments/assets/7b8b248b-50cc-41e3-bf0e-e6c8fda810b8" />
@@ -53,7 +66,13 @@ You can set your screenshot saving location on srs/uploads to sharing automaticl
 ### you can make put the project in startup to auto run after booting
 ### auto delete, deletes the uploaded files after 5 minutes
 
-# Update! 
+# Update!
+## 1.0.5v
+### cli qrcode
+### changing the qrcode module
+### asking the port (default to 3000)
+### notification 
+
 ## 1.0.3v
 ### auto delete
 ### fixing qrcode in mobile view
@@ -64,6 +83,28 @@ You can set your screenshot saving location on srs/uploads to sharing automaticl
 ### making responsive pages
 ### releasing the stable version
 
+
+<br>
+## Contributing
+Contributions are highly appreciated! Whether it’s bug fixes, feature enhancements, or documentation improvements:
+
+Fork the repo
+
+Create a new branch (git checkout -b feature/awesome-feature)
+
+Make your changes and commit (git commit -m "Add awesome feature")
+
+Push to your branch (git push origin feature/awesome-feature)
+
+Open a Pull Request with a clear description
+
+Please ensure your code follows the project's coding standards and includes relevant tests.
+
+## License
+This project is licensed under the MIT License. Feel free to use, modify, and distribute this application as you see fit.
+
+For questions or feedback, reach out to UndrDsk0M. <a href="https://gravatar.com/fantasticcherryblossomef40d159a8">Me!</a>
+
 Whole project is built by flask
-Jinja2 protects the project from getting Xss attack.
+Jinja2 protects from getting Xss attack.
 i love to know what you think about this project so feel free!
